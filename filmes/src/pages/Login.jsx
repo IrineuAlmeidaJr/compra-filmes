@@ -26,7 +26,6 @@ export function Login() {
     return (
         <div className="bg-netflix-black-700  h-screen">
             <div className="bg-bg-film bg-no-repeat bg-left-bottom bg-cover h-full flex flex-col justify-center items-center">
-                
                 <div className="bg-netflix-black-700 bg-opacity-95 w-[440px] flex-col p-5 rounded-md">
                     <h3 className="mt-2 mb-4 text-2xl text-white font-medium dark:text-white">
                         Log in
@@ -152,6 +151,8 @@ export function Login() {
                 estado={estadoModal}
                 setEstado={setEstadoModal}
             />  
+
+            
 
         </div>
     )
