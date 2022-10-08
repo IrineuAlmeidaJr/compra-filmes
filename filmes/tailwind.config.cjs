@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        '3xl': '0px 3px 8px 0px rgba(0, 0, 0, 0.24)',
+      },
       backgroundImage: {
         'bg-film': "url('/src/public/assets/bg-film.jpeg')",
         'bg-pop-corn': "url('/src/public/assets/pop-corn.png')" 

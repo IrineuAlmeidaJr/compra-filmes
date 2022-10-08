@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ModalRegister } from "../components/ModalRegister";
 
 export function Login() {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState({id:1, tioo:1, nome:'Irineu', image: 'https://github.com/IrineuAlmeidaJr.png'});
     const [estadoModal, setEstadoModal] = useState(false);
     const navigate = useNavigate();
 
@@ -18,9 +18,15 @@ export function Login() {
         e.preventDefault();
         const email = document.getElementById('email').value;
         const senha = document.getElementById('password').value;
+        // Carregar usuári com aquele email
         console.log(email + "  " + senha)
-        if(email === 'irineu@hotmail.com' && senha === '123456')
+        // if(email === 'irineu@hotmail.com' && senha === '123456') {
+            localStorage.clear();
+            localStorage.setItem("usuario", JSON.stringify(user));
             navigate("/home");
+            
+        // }
+            
     }
 
     return (

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 
 
@@ -17,6 +18,8 @@ const style = {
 };
 
 export function ModalRegister(props) {
+
+    const [cadastrarUsuario, setCadastrarUsuario] = useState('')
     
     const handleClose = () => props.setEstado(false);
 
@@ -29,6 +32,10 @@ export function ModalRegister(props) {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
+                {/*  
+                     * * * ATEÇÃO * * *
+                    Depois estudar como fazer aqui o event.preventDefault() 
+                */}
                 <Box sx={style} className="bg-netflix-black-700 bg-opacity-90">                
                     <form>
                         <h3 className="mb-4 text-2xl text-white font-medium dark:text-white">
@@ -108,6 +115,36 @@ export function ModalRegister(props) {
                                 required
                             />
                         </div> 
+                        <div className='mb-6'>
+                            <label 
+                                htmlFor="urlImage" 
+                                className="block mb-2 text-sm font-medium text-white dark:text-gray-300">
+                                    Imagem Perfil
+                            </label>
+                            <input 
+                                type="urlImage" 
+                                name="text" id="urlImage" 
+                                className="
+                                    bg-gray-50 
+                                    border 
+                                    border-gray-300 
+                                    text-gray-900 
+                                    text-sm rounded-lg 
+                                    focus:ring-blue-500 
+                                    focus:border-blue-500 
+                                    block 
+                                    w-full 
+                                    p-2.5 
+                                    dark:bg-gray-700 
+                                    dark:border-gray-600 
+                                    dark:placeholder-gray-400 
+                                    dark:text-white 
+                                    dark:focus:ring-blue-500 
+                                    dark:focus:border-blue-500" 
+                                placeholder="Informe uma url de imagem para usar no seu perfil" 
+                                required 
+                            />
+                        </div>
                         <div className="mb-6">
                             <label 
                                 htmlFor="password" 
@@ -202,6 +239,7 @@ export function ModalRegister(props) {
                                     dark:bg-green-600 
                                     dark:hover:bg-green-700 
                                     dark:focus:ring-green-800"
+                                onClick={cadastrarUsuario}
                             >
                                     Confirmar
                             </button>

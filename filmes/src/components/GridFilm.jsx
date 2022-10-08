@@ -6,10 +6,8 @@ import { Item } from "./Item"
 import { ModalCompra } from "./ModalCompra";
 
 export function GridFilm(props) {
-    const [estadoModal, setEstadoModal] = useState(false);
-
+    
     const openModal = () => props.setEstado(true);
-
 
     return(
         <div className="grid grid-cols-4 gap-2 ">
@@ -21,8 +19,7 @@ export function GridFilm(props) {
                             image = {film.image}
                             nome={''}/>                        
                         </div>
-                    </div>
-                    
+                    </div>                    
                 )
             })}
 
