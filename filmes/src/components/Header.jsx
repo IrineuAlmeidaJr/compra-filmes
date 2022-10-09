@@ -150,7 +150,7 @@ export function Header(props) {
                     col-start-5 col-end-5
                     h-[54px]
                     rounded-md"
-                src={props.usuario.image}
+                src={props.usuario.url}
             />     
         </header>
     )

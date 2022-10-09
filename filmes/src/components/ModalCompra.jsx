@@ -27,10 +27,10 @@ export function ModalCompra(props) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style} className="bg-netflix-black-700 bg-opacity-90">                
-                    <h1 className='text-xl font-bold'>{props.filme.nome}</h1>
-                    <p className='text-white mt-2'><span className='font-bold text-lg'>Descrição: </span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi deserunt reprehenderit nam laborum minima aspernatur facere, eveniet quam, necessitatibus ipsa adipisci nisi, quaerat culpa. Ullam officia eum itaque laboriosam recusandae?</p>
-                    <p className='text-white mt-2'><span className='font-bold text-lg'>Comprar: </span>R$ {props.filme.comprar}</p>
-                    <p className='text-white mt-2'><span className='font-bold text-lg'>Alugar: </span>R$ {props.filme.alugar}</p>
+                    <h1 className='text-xl font-bold'>{props.filme.titulo}</h1>
+                    <p className='text-white mt-2'><span className='font-bold text-lg'>Descrição: </span>{props.filme.descricao}</p>
+                    <p className='text-white mt-2'><span className='font-bold text-lg'>Comprar: </span>{!!props.filme.valor ? props.filme.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : props.filme.valor}</p>
+                    <p className='text-white mt-2'><span className='font-bold text-lg'>Alugar: </span>{!!props.filme.valor ?(props.filme.valor*0.25).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : props.filme.valor}</p>
                     <div className='mt-8 px-20 flex justify-between'>
                             <button 
                                 type="submit" 

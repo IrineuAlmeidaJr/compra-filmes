@@ -16,8 +16,8 @@ export function CarouselFilm(props) {
                         <div key={film.id} onClick={openModal}>                      
                             <Item                   
                                 key={film.id}
-                                image = {film.image}
-                                nome={film.nome}
+                                image = {film.foto}
+                                nome={film.titulo}
                             />
                         </div>
                     </div>

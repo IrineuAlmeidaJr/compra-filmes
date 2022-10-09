@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 
 
@@ -18,11 +19,51 @@ const style = {
 };
 
 export function ModalRegister(props) {
-
-    const [cadastrarUsuario, setCadastrarUsuario] = useState('')
-    
+    const navigate = useNavigate();
     const handleClose = () => props.setEstado(false);
 
+    function cadastrarUsuario(event) {
+        event.preventDefault();
+        const nome = document.getElementById('nome').value;
+        const email = document.getElementById('emailUsu').value;;
+        const imagemPerfil = document.getElementById('urlImage').value;;
+        const senha = document.getElementById('senha').value        
+
+        const url = "http://localhost:8080/api/usuario";
+        const usuario = JSON.stringify({
+            id: 0,
+            nome: nome,
+            email: email,
+            senha: senha,
+            url: imagemPerfil,
+            nivel: 0,
+            status: true
+        })
+        //  Busca em Largura (BFS)
+        fetch(url,{
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: usuario
+        })
+        .then(() => console.log("PASSOU AQUI " + usuario))
+        .catch(function(err) {
+            console.error('Error - ', err);
+        })
+
+        swal({
+            title: "Sucesso!",
+            text: "Cadastro concluido",
+            icon: "success",
+            button: "Finalizar",
+            dangerMode: true,
+        })  
+        .then(() => {
+            handleClose(); 
+            navigate("/");
+        });
+    }
 
     return (
         <div>
@@ -32,18 +73,15 @@ export function ModalRegister(props) {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                {/*  
-                     * * * ATEÇÃO * * *
-                    Depois estudar como fazer aqui o event.preventDefault() 
-                */}
+                
                 <Box sx={style} className="bg-netflix-black-700 bg-opacity-90">                
-                    <form>
+                    <form onSubmit={cadastrarUsuario}>
                         <h3 className="mb-4 text-2xl text-white font-medium dark:text-white">
                             Cadastro
                         </h3>
                         <div className="mb-6">
                             <label 
-                                htmlFor="first_name" 
+                                htmlFor="nome" 
                                 className="
                                     block 
                                     mb-2 
@@ -56,7 +94,7 @@ export function ModalRegister(props) {
                             </label>
                             <input 
                                 type="text" 
-                                id="first_name" 
+                                id="nome" 
                                 className="
                                     bg-gray-50 
                                     border 
@@ -74,7 +112,7 @@ export function ModalRegister(props) {
                                     dark:text-white 
                                     dark:focus:ring-blue-500 
                                     dark:focus:border-blue-500" 
-                                placeholder="John" 
+                                placeholder="Nome e Sobronome" 
                                 required
                             />
                         </div>
@@ -93,7 +131,7 @@ export function ModalRegister(props) {
                             </label>
                             <input 
                                 type="email" 
-                                id="email" 
+                                id="emailUsu" 
                                 className="
                                     bg-gray-50 
                                     border 
@@ -123,7 +161,8 @@ export function ModalRegister(props) {
                             </label>
                             <input 
                                 type="urlImage" 
-                                name="text" id="urlImage" 
+                                name="text" 
+                                id="urlImage" 
                                 className="
                                     bg-gray-50 
                                     border 
@@ -147,7 +186,7 @@ export function ModalRegister(props) {
                         </div>
                         <div className="mb-6">
                             <label 
-                                htmlFor="password" 
+                                htmlFor="senha" 
                                 className="
                                     block 
                                     mb-2 
@@ -160,7 +199,7 @@ export function ModalRegister(props) {
                             </label>
                             <input 
                                 type="password" 
-                                id="password" 
+                                id="senha" 
                                 className="
                                     bg-gray-50 
                                     border 
@@ -180,44 +219,6 @@ export function ModalRegister(props) {
                                 placeholder="•••••••••" 
                                 required />
                         </div> 
-                        <div className="mb-6">
-                            <label 
-                                htmlFor="confirm_password" 
-                                className="
-                                    block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
-                                    text-white
-                                    dark:text-gray-300"
-                                >
-                                    Digite novamente a senha
-                            </label>
-                            <input 
-                                type="password" 
-                                id="confirm_password" 
-                                className="
-                                    bg-gray-50 
-                                    border 
-                                    border-gray-300 
-                                    text-gray-900 
-                                    text-sm 
-                                    rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block 
-                                    w-full 
-                                    p-2.5 
-                                    dark:bg-gray-700 
-                                    dark:border-gray-600 
-                                    dark:placeholder-gray-400 
-                                    dark:text-white 
-                                    dark:focus:ring-blue-500 
-                                    dark:focus:border-blue-500" 
-                                placeholder="•••••••••" 
-                                required 
-                            />
-                        </div>
                         <div className='mt-8 px-20 flex justify-between'>
                             <button 
                                 type="submit" 
@@ -239,7 +240,6 @@ export function ModalRegister(props) {
                                     dark:bg-green-600 
                                     dark:hover:bg-green-700 
                                     dark:focus:ring-green-800"
-                                onClick={cadastrarUsuario}
                             >
                                     Confirmar
                             </button>

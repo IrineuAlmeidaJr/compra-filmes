@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ModalRegister } from "../components/ModalRegister";
 
+import swal from 'sweetalert';
+
 export function Login() {
-    const [user, setUser] = useState({id:1, tioo:1, nome:'Irineu', image: 'https://github.com/IrineuAlmeidaJr.png'});
+    // const [user, setUser] = useState({id:1, tioo:1, nome:'Irineu', image: 'https://github.com/IrineuAlmeidaJr.png'});
     const [estadoModal, setEstadoModal] = useState(false);
     const navigate = useNavigate();
 
@@ -13,19 +15,44 @@ export function Login() {
         setEstadoModal(true);
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         // buscar do banco e ver se tem usuário com aquele email e se bate a senha
         e.preventDefault();
         const email = document.getElementById('email').value;
         const senha = document.getElementById('password').value;
-        // Carregar usuári com aquele email
-        console.log(email + "  " + senha)
-        // if(email === 'irineu@hotmail.com' && senha === '123456') {
-            localStorage.clear();
-            localStorage.setItem("usuario", JSON.stringify(user));
-            navigate("/home");
+
+
+        await fetch('http://localhost:8080/api/usuario/buscarativos?' +
+        new URLSearchParams({
+            filtro: email
+        }))
+        .then(response => {
+            response.json().then(data => {
+                console.log(data); 
+                if(data.length == 1 && email === data[0].email && senha === data[0].senha) {
+                    localStorage.clear();
+                    localStorage.setItem("usuario", JSON.stringify(data[0]));
+                    navigate("/home");            
+                } else {
+                    swal({
+                        title: "Erro!",
+                        text: "Verifique o usuario e a senha",
+                        icon: "error",
+                        button: "Finalizar",
+                        dangerMode: true,
+                    })  
+                    .then(() => {
+                        handleClose(); 
+                        navigate("/home");
+                    });
+                }                    
+            })
+        }) 
+        
+        
+        
             
-        // }
+        
             
     }
 
@@ -36,7 +63,7 @@ export function Login() {
                     <h3 className="mt-2 mb-4 text-2xl text-white font-medium dark:text-white">
                         Log in
                     </h3>
-                    <form className="space-y-6" action="#">
+                    <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
                             <label 
                                 htmlFor="email" 
@@ -122,7 +149,6 @@ export function Login() {
                                 dark:bg-netflix-red-500
                                 dark:hover:bg-netflix-red-700 
                                 dark:focus:bg-netflix-red-800"
-                            onClick={handleSubmit}
                         >
                                 Entrar
                             </button>

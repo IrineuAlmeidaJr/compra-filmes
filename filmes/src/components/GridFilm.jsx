@@ -16,7 +16,7 @@ export function GridFilm(props) {
                     <div key={film.id} onClick={() => props.setFilme(film)}>
                         <div key={film.id} onClick={openModal}>                        
                             <Item                           
-                            image = {film.image}
+                            image = {film.foto}
                             nome={''}/>                        
                         </div>
                     </div>                    
