@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import { MyDropdown } from "./MyDropdown";
 
 export function Header(props) {
 
@@ -24,24 +24,24 @@ export function Header(props) {
             2xl:px-48                
             grid
             gap-1
-            grid-cols-[1fr,3fr,4fr,0fr,1fr]
+            grid-cols-[8fr,8fr,1fr]
             items-center
             justify-center"
         >
-            <div className="text-white">
-                <Link  id="logo" to="/home">
-                    <img src="/src/public/assets/logo.png" alt="Logo Image" 
-                    className='max-h-[80px] min-h-[80px]'/>
-                </Link>
-            </div>      
+               
             <nav className="
                 text-white
                 flex
                 flex-1
-                ml-6
                 justify-between
                 items-center
-            ">                
+            ">       
+                <div className="text-white">
+                    <Link  id="logo" to="/home">
+                        <img src="/src/public/assets/logo.png" alt="Logo Image" 
+                        className='max-h-[80px] min-h-[80px]'/>
+                    </Link>
+                </div>            
                 {/* <Link  to="/home">Início</Link> */}
                 <Link to="/assinaturas">Assinatura</Link>  
                 <Link to="/meusfilmes">Meus Filmes</Link>      
@@ -125,8 +125,8 @@ export function Header(props) {
                                 absolute 
                                 right-2.5 
                                 bottom-2.5 
-                                bg-netflix-red-300
-                                hover:bg-netflix-red-500
+                                bg-netflix-red-500
+                                hover:bg-netflix-red-700
                                 focus:ring-4 
                                 focus:outline-none 
                                 focus:ring-red-300
@@ -145,13 +145,10 @@ export function Header(props) {
                     </div>
                 </form>
             </nav> 
-            <img
-                className="
-                    col-start-5 col-end-5
-                    h-[54px]
-                    rounded-md"
-                src={props.usuario.url}
-            />     
+            <MyDropdown usuario={props.usuario} />   
+
+            
+              
         </header>
     )
 }

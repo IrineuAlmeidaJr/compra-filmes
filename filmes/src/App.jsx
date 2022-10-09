@@ -5,6 +5,7 @@ import { Home } from './pages/Home';
 
 import { Login } from './pages/Login';
 import { MeusFilmes } from './pages/MeusFilmes';
+import { Pagamento } from './pages/Pagamento';
 
 export default function  App() {
 
@@ -15,6 +16,7 @@ export default function  App() {
         <Route path="/home" element={<Home />} />
         <Route path="/assinaturas" element={<Assinaturas />} />
         <Route path="/meusfilmes" element={<MeusFilmes />} />
+        <Route path="/pagamento" element={<Pagamento />} />
       </Routes>
     </Router>
   )

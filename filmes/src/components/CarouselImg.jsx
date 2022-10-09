@@ -2,18 +2,18 @@ import { Carousel } from "flowbite-react";
 
 export function CarouselImg() {
     return(        
-        <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
+      <section className="h-72 xl:h-80 2xl:h-96">
         <Carousel>
-          <img
-            src="https://4.bp.blogspot.com/-Nf80hDmwHXE/WkVAFCpLJkI/AAAAAAAARyU/2UYxmHdrgJw21E3ccwQJFXOUvzCe-S4uQCLcBGAs/s1600/bright-banner.png"
+        <img
+            src="https://i0.wp.com/oportaln10.com.br/dinastianerd/wp-content/uploads/2021/07/wittcher-season-2-poster-header.jpg?fit=1920%2C1080&ssl=1"
             alt="..."
           />
           <img
-            src="https://oimparcial.com.br/app/uploads/2020/09/Dunkirk-banner-1024x538.jpg"
+            src="https://www.trekbrasilis.org/tbweblog/wp-content/uploads/2022/05/maxresdefault.jpg"
             alt="..."
           />
           <img
-            src="https://comicbookmovie.com/images/articles/banners/194585.jpg"
+            src="https://entretetizei.com.br/site/wp-content/uploads/2021/08/High-School-Musical-O-Musical-A-SC3A9rie-1024x576-1.png"
             alt="..."
           />
           <img
@@ -21,10 +21,10 @@ export function CarouselImg() {
             alt="..."
           />
           <img
-            src="https://img.olhardigital.com.br/wp-content/uploads/2022/05/Thor-Amor-e-Trovao.png"
+            src="https://static.poder360.com.br/2022/09/netflix-the-crown.jpeg"
             alt="..."
           />
         </Carousel>
-      </div>
+      </section>
     )
 }

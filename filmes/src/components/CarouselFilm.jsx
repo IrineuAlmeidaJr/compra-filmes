@@ -23,11 +23,7 @@ export function CarouselFilm(props) {
                     </div>
                     
                 )
-            })}
-
-            
-           
-           
+            })}           
             {/* <a href="#section2" className="arrow__btn right-arrow">›</a> */}
         </section>
 

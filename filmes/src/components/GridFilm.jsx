@@ -14,10 +14,11 @@ export function GridFilm(props) {
             {props.listaFilmes.map(film => {
                 return (
                     <div key={film.id} onClick={() => props.setFilme(film)}>
-                        <div key={film.id} onClick={openModal}>                        
+                        <div onClick={openModal}>                        
                             <Item                           
-                            image = {film.foto}
-                            nome={''}/>                        
+                                image = {film.foto}
+                                nome={''}
+                            />                        
                         </div>
                     </div>                    
                 )

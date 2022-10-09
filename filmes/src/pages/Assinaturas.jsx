@@ -1,11 +1,10 @@
-import * as React from 'react';
 import { useState } from 'react';
 
 import { Card } from 'flowbite-react';
 
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-import { ModalAssinatura } from '../components/ModalAssinatura';
+import { ModalPagamentoCartao } from '../components/ModalPagamentoCartao';
 
 export function Assinaturas() {
     const [estadoModal, setEstadoModal] = useState(false);
@@ -18,8 +17,7 @@ export function Assinaturas() {
     function AssinarOuro() {
         setEstadoModal(true);
         setValorAssinatura('19.90');
-        console.log(`Entrou ${usuario.nome} Assinar Ouro`);
-        
+        console.log(`Entrou ${usuario.nome} Assinar Ouro`);        
     }
 
     function AssinarPrata() {
@@ -334,7 +332,7 @@ export function Assinaturas() {
                 </article>                
             </div>  
             <Footer />  
-            <ModalAssinatura
+            <ModalPagamentoCartao
                 estado={estadoModal}
                 setEstado={setEstadoModal}
                 valor={valorAssinatura}

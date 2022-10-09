@@ -31,6 +31,7 @@ export function Login() {
                 console.log(data); 
                 if(data.length == 1 && email === data[0].email && senha === data[0].senha) {
                     localStorage.clear();
+                    data[0].senha = ''
                     localStorage.setItem("usuario", JSON.stringify(data[0]));
                     navigate("/home");            
                 } else {
@@ -49,11 +50,6 @@ export function Login() {
             })
         }) 
         
-        
-        
-            
-        
-            
     }
 
     return (
@@ -183,8 +179,6 @@ export function Login() {
                 estado={estadoModal}
                 setEstado={setEstadoModal}
             />  
-
-            
 
         </div>
     )

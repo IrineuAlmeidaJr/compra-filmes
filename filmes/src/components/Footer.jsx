@@ -13,8 +13,7 @@ export function Footer() {
       w-screen
       bg-netflix-black-600
       bg-opacity-95   
-      pt-2
-      pb-4 
+      py-4
       px-12
       md:px-20
       lg:px-36
@@ -22,13 +21,13 @@ export function Footer() {
     >
       <div>
         <div className="grid grid-flow-col gap-3 justify-between px-[25vw]">
-          <a><TwitterIcon sx={{ color: '#e50914' }}/></a> 
-          <a><YouTube sx={{ color: '#e50914' }}/></a> 
-          <a><Facebook sx={{ color: '#e50914' }} /></a>
+          <a href='https://twitter.com'><TwitterIcon sx={{ color: '#e50914' }}/></a> 
+          <a href='https://youtube.com'><YouTube sx={{ color: '#e50914' }}/></a> 
+          <a href='https://facebook.com'><Facebook sx={{ color: '#e50914' }} /></a>
         </div>
       </div> 
-      <div className='flex flex-1 justify-center items-center pt-2'>
-        <p className='text-white text-xs'>Copyright © 2022 - Todos direitos reservados a <span className='text-sm font-bold'>FIPFLIX Ltd </span></p>
+      <div className='flex flex-1 pt-4 pb-2 justify-center items-center'>
+        <p className='text-white text-base'>Copyright © 2022 - Todos direitos reservados a <span className='text-sm font-bold'>FIPFLIX Ltd </span></p>
       </div>
     </footer>
   )

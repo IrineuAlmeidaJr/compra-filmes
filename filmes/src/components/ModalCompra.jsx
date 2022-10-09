@@ -1,5 +1,6 @@
-import Box from '@mui/material/Box';
+import { useNavigate } from "react-router-dom";
 
+import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
 const style = {
@@ -9,15 +10,23 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 550,
   border: 'none',
-//   boxShadow: 24,
+  boxShadow: 24,
   p: 4,
   borderRadius: '16px'
 };
 
 export function ModalCompra(props) {
+    
+    const navigate = useNavigate();
 
     const handleClose = () => { props.setEstado(false)}
         
+    function comprar() {
+
+        localStorage.setItem("filme", JSON.stringify(props.filme));
+        navigate("/pagamento");   
+    }
+
     return(
         <div>
             <Modal
@@ -28,12 +37,12 @@ export function ModalCompra(props) {
             >
                 <Box sx={style} className="bg-netflix-black-700 bg-opacity-90">                
                     <h1 className='text-xl font-bold'>{props.filme.titulo}</h1>
-                    <p className='text-white mt-2'><span className='font-bold text-lg'>Descrição: </span>{props.filme.descricao}</p>
+                    <p className='text-white text-justify mt-2'><span className='font-bold text-lg'>Descrição: </span>{props.filme.descricao}</p>
                     <p className='text-white mt-2'><span className='font-bold text-lg'>Comprar: </span>{!!props.filme.valor ? props.filme.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : props.filme.valor}</p>
                     <p className='text-white mt-2'><span className='font-bold text-lg'>Alugar: </span>{!!props.filme.valor ?(props.filme.valor*0.25).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : props.filme.valor}</p>
                     <div className='mt-8 px-20 flex justify-between'>
                             <button 
-                                type="submit" 
+                                onClick={comprar} 
                                 className="
                                     text-white 
                                     bg-green-500 
@@ -55,8 +64,7 @@ export function ModalCompra(props) {
                             >
                                     Comprar
                             </button>
-                            <button 
-                                type="submit" 
+                            <button  
                                 className="
                                     text-white 
                                     bg-green-500 

@@ -17,7 +17,7 @@ const style = {
   borderRadius: '16px'
 };
 
-export function ModalAssinatura(props) {
+export function ModalPagamentoCartao(props) {
     const navigate = useNavigate();
     const handleClose = () => { props.setEstado(false)}
 

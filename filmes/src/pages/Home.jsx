@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState, useEffect } from 'react';
 
 import { Header } from '../components/Header';
@@ -39,8 +38,8 @@ export function Home() {
     const [todosFilmes, setTodosFilmes] = useState([])
     const [top5, setTop5] = useState([])
     
-    async function carregarTodosFilmes() { 
-        await fetch("http://localhost:8080/api/produto/buscartodos?filtro")
+    function carregarTodosFilmes() { 
+        fetch("http://localhost:8080/api/produto/buscartodos?filtro")
             .then(response => {
                 response.json().then(data => {
                     setTodosFilmes(data)
@@ -49,8 +48,8 @@ export function Home() {
             })         
     }
 
-    async function carregarTop5() {
-        await fetch("http://localhost:8080/api/produto/buscarmaisvendidos")
+    function carregarTop5() {
+        fetch("http://localhost:8080/api/produto/buscarmaisvendidos")
         .then(response => {
             response.json().then(data => {
                 let aux = [];
@@ -64,23 +63,17 @@ export function Home() {
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            carregarTodosFilmes();
-            carregarTop5();
-            console.log('Entrou')
-        }, 1000);
-    })
+        carregarTodosFilmes();
+        carregarTop5();        
+    },[])
     
     return (
-        <div className="h-full w-full min-h-screen relative bg-netflix-black-700">
-            
-            <div className="pb-28">
-                
-                <Header
-                    usuario = {usuario}
-                    setUsuario = {setUsuario}
-                />
-                
+        <div className="h-full w-full min-h-screen relative bg-netflix-black-700">            
+            <Header
+                usuario = {usuario}
+                setUsuario = {setUsuario}
+            />
+            <main className="pb-28">                
                 <article 
                     className="
                         flex-1
@@ -92,7 +85,7 @@ export function Home() {
                 >
                     <CarouselImg />
 
-                    <div className='text-white mt-4'>
+                    <section className='text-white mt-4'>
                         <h3 className='text-base font-bold -mb-3'>Top 5</h3>
                         <CarouselFilm 
                             top5={top5}
@@ -100,9 +93,9 @@ export function Home() {
                             setEstado={setEstadoModal}
                             setFilme = {setFilmeEscolhido}
                         />
-                    </div>
+                    </section>
                     
-                    <div className='text-white mt-4 mb-4'>
+                    <section className='text-white mt-4 mb-4'>
                         <h3 className='text-base font-bold mb-2'>Filmes e Séries</h3>
                         <GridFilm 
                             listaFilmes={todosFilmes} 
@@ -110,11 +103,10 @@ export function Home() {
                             setEstado={setEstadoModal}
                             setFilme = {setFilmeEscolhido}
                         />
-                    </div>
-                </article>    
-                
-                <Footer />
-            </div>
+                    </section>
+                </article> 
+            </main>
+            <Footer />
             <ModalCompra 
                 estado={estadoModal}
                 setEstado={setEstadoModal}
