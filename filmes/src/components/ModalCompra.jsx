@@ -22,7 +22,13 @@ export function ModalCompra(props) {
     const handleClose = () => { props.setEstado(false)}
         
     function comprar() {
+        localStorage.setItem("tipo", 1);
+        localStorage.setItem("filme", JSON.stringify(props.filme));
+        navigate("/pagamento");   
+    }
 
+    function alugar() {
+        localStorage.setItem("tipo", 0);
         localStorage.setItem("filme", JSON.stringify(props.filme));
         navigate("/pagamento");   
     }
@@ -65,6 +71,7 @@ export function ModalCompra(props) {
                                     Comprar
                             </button>
                             <button  
+                                onClick={alugar}
                                 className="
                                     text-white 
                                     bg-green-500 

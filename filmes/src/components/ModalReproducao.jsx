@@ -35,6 +35,12 @@ export function ModalReproducao(props) {
                         filme={props.filme}
                     />
                     <p className='my-2  text-white text-justify'><span className='font-bold text-lg'>Descrição: </span>{props.filme.descricao}</p>
+                    {   
+                        !!props.filme.dataexp ? 
+                        <p className='my-2  text-white text-justify'><span className='font-bold text-lg'>Data Expiração: </span>{props.filme.dataexp}</p>
+                        :
+                        "" 
+                   }
                 </Box>
             </Modal>
         </div>

@@ -4,49 +4,59 @@ import { useNavigate } from "react-router-dom";
 import { Label, Select } from "flowbite-react";
 
 export function Checkout(props) {
+    const [tipo, setTipo] = useState(localStorage.getItem("tipo"));
     const [usuario, setUsuario] = useState(JSON.parse(localStorage.getItem("usuario")));
     const [opcao, setOpcao] = useState('');
     const navigate = useNavigate();
     
     const handleChange = (e) => {
         setOpcao(e.target.value);
-        console.log(e.target.value);
-        console.log(e.target.value === 'credito');
     }
 
     function dataAtualFormatada(){
-        var data = new Date(),
-            dia  = data.getDate().toString(),
-            diaF = (dia.length == 1) ? '0'+dia : dia,
-            mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
-            mesF = (mes.length == 1) ? '0'+mes : mes,
-            anoF = data.getFullYear();
+        let data = new Date();
+        let dia  = (data.getDate()+1).toString();
+        let diaF = (dia.length == 1) ? '0'+dia : dia;
+        let mes  = (data.getMonth()+1).toString(); //+1 pois no getMonth Janeiro começa com zero.
+        let mesF = (mes.length == 1) ? '0'+mes : mes;
+        let anoF = data.getFullYear();
         return diaF+"/"+mesF+"/"+anoF;
     }
 
     function dataAtualFormatadaBanco(){
-        var data = new Date(),
-            dia  = data.getDate().toString(),
-            diaF = (dia.length == 1) ? '0'+dia : dia,
-            mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
-            mesF = (mes.length == 1) ? '0'+mes : mes,
-            anoF = data.getFullYear();
+        let data = new Date();
+        let dia  = (data.getDate()+1).toString();
+        let diaF = (dia.length == 1) ? '0'+dia : dia;
+        let mes  = (data.getMonth()+1).toString(); //+1 pois no getMonth Janeiro começa com zero.
+        let mesF = (mes.length == 1) ? '0'+mes : mes;
+        let anoF = data.getFullYear();
         return anoF+"-"+mesF+"-"+diaF;
     }
 
-    function comprarCartao() {
+    function dataAtualFormatadaBancoAluguel(){
+        let data = new Date();
+        let dia  = (data.getDate()+1).toString();
+        let diaF = (dia.length == 1) ? '0'+dia : dia;
+        let mes  = (data.getMonth()+1).toString(); //+1 pois no getMonth Janeiro começa com zero.
+        let mesF = (mes.length == 1) ? '0'+mes : mes;
+        let anoF = data.getFullYear();
+        return anoF+"-"+mesF+"-"+diaF;
+    }
+
+    function pagarCartao() {
+        const data = (tipo === '1') ? null : dataAtualFormatadaBancoAluguel();
+        const url = (tipo === '1') ? "http://localhost:8080/api/compra/2" :
+                                "http://localhost:8080/api/alugar/2";    
+
         const transacao = JSON.stringify({
             id: 0,
             data: dataAtualFormatadaBanco(),
             produto: props.filme,
             usuario: usuario,
-            dataexp: null, // null porque é comprar se fosse alugar teria a data
-            tipo: 1
+            dataexp: data, // null porque é comprar se fosse alugar teria a data
+            tipo: tipo
         })
-
-        console.log(transacao);
-
-        const url = "http://localhost:8080/api/compra/2";
+        
         fetch(url,{
             method: "POST",
             headers: {
@@ -57,7 +67,7 @@ export function Checkout(props) {
         .then(() => {
             swal({
                 title: "Sucesso!",
-                text: "Compra concluida",
+                text: "Pagamento concluido",
                 icon: "success",
                 button: "Finalizar",
                 dangerMode: true,
@@ -71,17 +81,20 @@ export function Checkout(props) {
         })
     }
 
-    function comprarBoleto() {
+    function pagarBoleto() {
+        const data = (tipo === '1') ? null : dataAtualFormatadaBancoAluguel();
+        const url = (tipo === '1') ? "http://localhost:8080/api/compra/1" :
+                                "http://localhost:8080/api/alugar/1";
+
         const transacao = JSON.stringify({
             id: 0,
             data: dataAtualFormatadaBanco(),
             produto: props.filme,
             usuario: usuario,
-            dataexp: null, // null porque é comprar se fosse alugar teria a data
-            tipo: 1
+            dataexp: data, // null porque é comprar se fosse alugar teria a data
+            tipo: tipo
         })
 
-        const url = "http://localhost:8080/api/compra/1";
         fetch(url,{
             method: "POST",
             headers: {
@@ -92,7 +105,7 @@ export function Checkout(props) {
         .then(() => {
             swal({
                 title: "Sucesso!",
-                text: "Compra concluida",
+                text: "Pagamento concluido",
                 icon: "success",
                 button: "Finalizar",
                 dangerMode: true,
@@ -107,17 +120,20 @@ export function Checkout(props) {
 
     }
 
-    function comprarPix() {
+    function pagarPix() {
+        const data = (tipo === '1') ? null : dataAtualFormatadaBancoAluguel();
+        const url = (tipo === '1') ? "http://localhost:8080/api/compra/3" :
+                                "http://localhost:8080/api/alugar/3";
+
         const transacao = JSON.stringify({
             id: 0,
             data: dataAtualFormatadaBanco(),
             produto: props.filme,
             usuario: usuario,
-            dataexp: null, // null porque é comprar se fosse alugar teria a data
-            tipo: 1
+            dataexp: data, // null porque é comprar se fosse alugar teria a data
+            tipo: tipo
         })
 
-        const url = "http://localhost:8080/api/compra/3";
         fetch(url,{
             method: "POST",
             headers: {
@@ -128,7 +144,7 @@ export function Checkout(props) {
         .then(() => {
             swal({
                 title: "Sucesso!",
-                text: "Compra concluida",
+                text: "Pagamento concluido",
                 icon: "success",
                 button: "Finalizar",
                 dangerMode: true,
@@ -150,12 +166,9 @@ export function Checkout(props) {
                     py-16 
                     px-4 
                     md:px-6 
-                    2xl:px-0 
                     flex 
                     justify-center 
-                    items-center 
-                    2xl:mx-auto 
-                    2xl:container"
+                    items-center"
                 >
                 <div 
                     className="
@@ -163,35 +176,27 @@ export function Checkout(props) {
                         flex-col 
                         justify-start 
                         items-start 
-                        w-full 
+                        max-w-xl
                         space-y-9"
                 >
                     <div 
                         className="
                             flex 
                             flex-col 
-                            xl:flex-row 
                             justify-center 
-                            xl:justify-between 
                             space-y-6 
-                            xl:space-y-0 
-                            xl:space-x-6 
                             w-full"
                     >
                         <div 
-                            className="
-                                xl:w-3/5 
-                                flex flex-col 
-                                sm:flex-row 
-                                xl:flex-col 
+                            className=" 
+                                flex 
+                                flex-row
                                 justify-center 
                                 items-center 
                                 bg-gray-100 
                                 py-7 
-                                sm:py-0 
-                                xl:py-10 
-                                px-10 
-                                xl:w-full"
+                                sm:py-0  
+                                px-10"
                         >
                             <div 
                                 className="
@@ -202,12 +207,16 @@ export function Checkout(props) {
                                     w-full 
                                     space-y-4"
                             >
-                                <p className="text-xl md:text-2xl leading-normal text-gray-800">
+                                <p className="text-xl leading-normal text-gray-800">
                                     {props.filme.titulo}
                                 </p>
                                 <p className="text-base font-semibold leading-none text-gray-600">
-                                {!!props.filme.valor ? 
-                                    props.filme.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) 
+                                {!!props.filme.valor ? (
+                                        tipo === 1 ? 
+                                        props.filme.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+                                        :
+                                        (props.filme.valor * 0.25).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+                                    )
                                     : 
                                     props.filme.valor
                                 }
@@ -217,11 +226,8 @@ export function Checkout(props) {
                                 className="
                                     mt-6 
                                     sm:mt-0 
-                                    xl:my-10 
-                                    xl:px-20 
                                     w-52 
-                                    sm:w-96 
-                                    xl:w-auto"
+                                    sm:w-96"
                             >
                                 <img 
                                     className="m-2"
@@ -236,9 +242,7 @@ export function Checkout(props) {
                                 p-8 
                                 bg-gray-100 
                                 flex 
-                                flex-col 
-                                lg:w-full 
-                                xl:w-3/5"
+                                flex-col"
                             >
                                 
                             <div id="select">
@@ -363,7 +367,7 @@ export function Checkout(props) {
                                         </div>
 
                                         <button 
-                                            onClick={comprarCartao}
+                                            onClick={pagarCartao}
                                             className="
                                                 mt-8 border 
                                                 border-transparent 
@@ -406,9 +410,10 @@ export function Checkout(props) {
 
                                         
                                         <button 
-                                            onClick={comprarBoleto}
+                                            onClick={pagarBoleto}
                                             className="
-                                                mt-8 border 
+                                                mt-8 
+                                                border 
                                                 border-transparent 
                                                 hover:border-gray-300 
                                                 bg-netflix-red-500
@@ -470,7 +475,7 @@ export function Checkout(props) {
                                         </div>
 
                                         <button 
-                                            onClick={comprarPix}
+                                            onClick={pagarPix}
                                             className="
                                                 mt-8 border 
                                                 border-transparent 
@@ -492,7 +497,7 @@ export function Checkout(props) {
                                     </div>
                                 )                                
                             }
-                            
+
                         </div>
                     </div>
                 </div>
