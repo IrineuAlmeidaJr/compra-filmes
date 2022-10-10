@@ -33,7 +33,11 @@ export function Login() {
                     localStorage.clear();
                     data[0].senha = ''
                     localStorage.setItem("usuario", JSON.stringify(data[0]));
-                    navigate("/home");            
+                    if(data[0].nivel === 1) {
+                        navigate("/administrador");
+                    } else {
+                        navigate("/home");   
+                    }                             
                 } else {
                     swal({
                         title: "Erro!",
