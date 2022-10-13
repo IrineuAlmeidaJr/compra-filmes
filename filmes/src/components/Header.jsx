@@ -3,6 +3,13 @@ import { MyDropdown } from "./MyDropdown";
 
 export function Header(props) {
 
+    function buscar(e) {
+        e.preventDefault();
+        const valor = document.getElementById("search").value;
+        console.log(valor);
+        props.setFiltro(valor);
+    }
+
     return (
         <header
             className="
@@ -54,7 +61,7 @@ export function Header(props) {
                 justify-center
                 items-center"
             >
-                <form>   
+                <form onSubmit={buscar}>   
                     <label 
                         htmlFor="search" 
                         className="
@@ -137,7 +144,8 @@ export function Header(props) {
                                 py-2 
                                 dark:bg-netflix-red-300
                                 dark:hover:bg-netflix-red-500
-                                dark:focus:bg-netflix-red-700">
+                                dark:focus:bg-netflix-red-700"    
+                        >
                                     Buscar
                         </button>
                     </div>
@@ -145,9 +153,7 @@ export function Header(props) {
                     </div>
                 </form>
             </nav> 
-            <MyDropdown usuario={props.usuario} />   
-
-            
+            <MyDropdown usuario={props.usuario} />              
               
         </header>
     )

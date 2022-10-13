@@ -21,7 +21,6 @@ export function Login() {
         const email = document.getElementById('email').value;
         const senha = document.getElementById('password').value;
 
-
         await fetch('http://localhost:8080/api/usuario/buscarativos?' +
         new URLSearchParams({
             filtro: email
